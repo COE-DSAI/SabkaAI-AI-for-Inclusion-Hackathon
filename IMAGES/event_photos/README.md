@@ -1,1 +1,0 @@
-Upload event photos here 
