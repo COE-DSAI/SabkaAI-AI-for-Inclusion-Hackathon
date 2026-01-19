@@ -82,7 +82,7 @@ SabkaAI-AI-for-Inclusion-Hackathon/
 ├── IMAGES/
 │   ├── event_photos/
 │   ├── winners/
-    └── posters/
+│   └── posters/
 ```
 ---
 ## Team Project References (Original Repositories)
@@ -95,27 +95,6 @@ These are the original team repositories submitted during the hackathon:
 - Phone Cough Classifier: https://github.com/NedBoorer/PhoneCoughClassifier
 - TechVitals (Campus Ride - Smart E-Rickshaw Pooling System): https://github.com/Ishaan0709/Campus-Ride-Smart-E-Rickshaw-Pooling-System
 - VigilAI: https://github.com/Gokul2406/VigilAI
-
----
-
-## Acknowledgements
-
-Special thanks to the CoDSaI student innovators for their contributions and coordination:
-
-- Harsimran 
-- Lakshay
-- Sonali
-- Disha
-- Tamanna
-and team
-
-Faculty coordinators:
-
-
--
-- Dr. Amrita
-- Dr. Harpreet
-and team
 
 ---
 
