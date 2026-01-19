@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CLEAN GLOBAL STYLING (LIGHT THEME)
+   No dark variables, no forced dark BG,
+   no global overrides messing layout.
+============================================ */
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900 font-sans antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /* Remove ALL leftover dark theme overrides */
+  .glass,
+  .glass-strong,
+  .neon-text,
+  .glow-primary,
+  .glow-secondary {
+    all: unset;
+  }
+
+  /* Ensure consistent border color */
+  * {
+    @apply border-gray-200;
+  }
+}
+
+/* ============================================
+   LANDING PAGE POLISH
+============================================ */
+
+.section-title {
+  @apply text-2xl md:text-3xl font-bold text-gray-900 mb-4;
+}
+
+.card {
+  @apply bg-white border rounded-xl shadow-md p-6 transition hover:shadow-lg;
+}
+
+.btn-red {
+  @apply bg-red-600 text-white rounded-full px-5 py-2 shadow hover:bg-red-700 transition;
+}
+
+.text-muted {
+  @apply text-gray-600;
+}
+
+/* Smooth scroll */
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+/* ============================================
+   MAP FIXES (LIGHT MODE)
+============================================ */
+
+.leaflet-container {
+  background: white !important;
+  font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  color: black;
+}
+
+.leaflet-popup-tip {
+  background: white;
+}
+
+/* ============================================
+   CLEAN AUTH PAGE SUPPORT
+============================================ */
+
+.auth-card {
+  @apply bg-white rounded-2xl border shadow-lg p-8;
+}
+
+.auth-title {
+  @apply text-xl font-bold text-gray-900;
+}
+
+.auth-btn {
+  @apply bg-red-600 text-white rounded-full px-5 py-2 hover:bg-red-700 shadow transition;
+}
+body {
+  @apply bg-[#F7F7F7];
+}
