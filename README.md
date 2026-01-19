@@ -52,10 +52,10 @@ The diversity of ideas, along with the depth of responsibility and ethical aware
 
 This repository contains:
 
-Project **Code** (Project source code)
-Project **Results / Outputs** (screenshots, reports, demo evidence)  
-Event **Images** (posters, winner highlights, event photos)  
-Event **Documentation**
+- Project **Code** (Project source code)
+- Project **Results / Outputs** (screenshots, reports, demo evidence)  
+- Event **Images** (posters, winner highlights, event photos)  
+- Event **Documentation**
 
 ```bash
 SabkaAI-AI-for-Inclusion-Hackathon/
