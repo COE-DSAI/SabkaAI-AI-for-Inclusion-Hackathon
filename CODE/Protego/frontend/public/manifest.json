@@ -1,0 +1,46 @@
+{
+  "name": "Protego - Personal Safety Companion",
+  "short_name": "Protego",
+  "description": "AI-powered personal safety monitoring and emergency alerts",
+  "theme_color": "#1f2937",
+  "background_color": "#111827",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/shield.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["safety", "security", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Start Walk Mode",
+      "short_name": "Start Walk",
+      "description": "Start monitoring your walk session",
+      "url": "/dashboard?action=start-walk",
+      "icons": [
+        {
+          "src": "/shield.svg",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "SOS Alert",
+      "short_name": "SOS",
+      "description": "Trigger emergency alert",
+      "url": "/dashboard?action=sos",
+      "icons": [
+        {
+          "src": "/shield.svg",
+          "sizes": "any"
+        }
+      ]
+    }
+  ]
+}
