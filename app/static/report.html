@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swasth Saathi - Patient Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-4">
+
+    <!-- Search Card -->
+    <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg" id="search-card">
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-slate-800">My Health Report</h1>
+            <p class="text-slate-500">Enter your phone number to view results</p>
+        </div>
+
+        <form id="search-form" class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Phone Number</label>
+                <input type="text" id="phone-key" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all" placeholder="+91..." required>
+            </div>
+            
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors">
+                View Report
+            </button>
+        </form>
+        <p id="error-msg" class="text-red-500 text-center mt-4 hidden text-sm">No report found for this number.</p>
+    </div>
+
+    <!-- Report Card (Hidden) -->
+    <div id="report-card" class="hidden w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div class="bg-emerald-600 p-6 text-white">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-2xl font-bold">Health Report</h2>
+                    <p class="text-emerald-100 text-sm mt-1" id="rep-id">ID: --</p>
+                </div>
+                <button onclick="location.reload()" class="bg-white/20 hover:bg-white/30 p-2 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="p-8 space-y-6">
+            <!-- Status -->
+            <div class="flex items-center gap-4">
+                <div id="risk-badge" class="w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold bg-gray-200">?</div>
+                <div>
+                    <p class="text-sm text-slate-500 uppercase font-bold tracking-wider">Overall Risk</p>
+                    <p id="rep-risk" class="text-2xl font-bold text-slate-800">--</p>
+                </div>
+            </div>
+
+            <div class="h-px bg-slate-100"></div>
+
+            <!-- Findings -->
+            <div id="findings-section" class="hidden">
+                <p class="text-sm text-slate-500 uppercase font-bold tracking-wider mb-2">Screening Results</p>
+                <div id="findings-list" class="space-y-2 bg-slate-50 p-4 rounded-lg border border-slate-100">
+                </div>
+            </div>
+
+            <!-- Recommendation -->
+            <div>
+                <p class="text-sm text-slate-500 uppercase font-bold tracking-wider mb-2">Recommendation</p>
+                <p id="rep-rec" class="text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-lg border border-slate-100">
+                    --
+                </p>
+            </div>
+
+            <!-- Next Steps -->
+            <div id="next-steps-section" class="hidden">
+                <p class="text-sm text-slate-500 uppercase font-bold tracking-wider mb-2">⚡ Next Steps</p>
+                <ul id="next-steps-list" class="space-y-1 bg-slate-50 p-4 rounded-lg border border-slate-100 list-disc list-inside">
+                </ul>
+            </div>
+
+            <!-- Medical Contacts -->
+            <div id="contacts-section" class="hidden">
+                <p class="text-sm text-slate-500 uppercase font-bold tracking-wider mb-2">📞 Medical Contacts</p>
+                <div id="contacts-list" class="space-y-2 bg-amber-50 p-4 rounded-lg border border-amber-200">
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div id="disclaimer-section" class="hidden">
+                <p id="disclaimer-text" class="text-xs text-slate-500 italic bg-slate-50 p-3 rounded-lg border border-slate-100">
+                </p>
+            </div>
+
+            <!-- Download Button -->
+            <div id="download-container" class="hidden">
+                <a id="download-link" href="#" target="_blank" class="flex items-center justify-center gap-2 bg-slate-800 text-white py-3 px-4 rounded-xl font-bold hover:bg-slate-900 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Download Digital Card
+                </a>
+                <p class="text-[10px] text-center text-slate-400 mt-2 italic">Optimized for low-bandwidth (2G/3G) networks</p>
+            </div>
+
+            <!-- Meta -->
+            <div class="text-center pt-4">
+                <p class="text-xs text-slate-400">Generated on <span id="rep-time">--</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const phone = document.getElementById('phone-key').value.trim();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+            
+            btn.disabled = true;
+            btn.innerText = "Searching...";
+            
+            try {
+                // Encode phone number component correctly
+                const encodedPhone = encodeURIComponent(phone);
+                const res = await fetch(`/patient/report/${encodedPhone}`);
+                
+                if (!res.ok) throw new Error('Not Found');
+                
+                const data = await res.json();
+                showReport(data);
+                
+            } catch (err) {
+                document.getElementById('error-msg').classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = originalText;
+            }
+        });
+
+        function showReport(data) {
+            document.getElementById('search-card').classList.add('hidden');
+            document.getElementById('report-card').classList.remove('hidden');
+            
+            document.getElementById('rep-id').textContent = `ID: ${data.report_id}`;
+            document.getElementById('rep-risk').textContent = data.risk_level.toUpperCase();
+            document.getElementById('rep-rec').textContent = data.recommendation;
+            document.getElementById('rep-time').textContent = data.timestamp;
+
+            // Populate findings
+            if (data.findings && data.findings.length > 0) {
+                const findingsList = document.getElementById('findings-list');
+                findingsList.innerHTML = data.findings.map(f => {
+                    const statusColor = f.detected ? 'text-orange-600' : 'text-emerald-600';
+                    const icon = f.detected ? '⚠️' : '✅';
+                    return `<div class="flex justify-between items-center">
+                        <span class="font-medium">${f.name}</span>
+                        <span class="${statusColor} text-sm font-bold">${icon} ${f.status}</span>
+                    </div>`;
+                }).join('');
+                document.getElementById('findings-section').classList.remove('hidden');
+            }
+
+            // Populate next steps
+            if (data.next_steps && data.next_steps.length > 0) {
+                const stepsList = document.getElementById('next-steps-list');
+                stepsList.innerHTML = data.next_steps.map(step => 
+                    `<li class="text-slate-700">${step}</li>`
+                ).join('');
+                document.getElementById('next-steps-section').classList.remove('hidden');
+            }
+
+            // Populate medical contacts
+            if (data.medical_contacts && data.medical_contacts.length > 0) {
+                const contactsList = document.getElementById('contacts-list');
+                contactsList.innerHTML = data.medical_contacts.map(contact => 
+                    `<div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-slate-800">${contact.name}</p>
+                            <p class="text-xs text-slate-500">${contact.available}</p>
+                        </div>
+                        <a href="tel:${contact.number}" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-bold text-sm">
+                            📞 ${contact.number}
+                        </a>
+                    </div>`
+                ).join('');
+                document.getElementById('contacts-section').classList.remove('hidden');
+            }
+
+            // Show disclaimer
+            if (data.disclaimer) {
+                document.getElementById('disclaimer-text').textContent = data.disclaimer;
+                document.getElementById('disclaimer-section').classList.remove('hidden');
+            }
+
+            // Card Download Logic
+            if (data.card_url) {
+                document.getElementById('download-container').classList.remove('hidden');
+                document.getElementById('download-link').href = data.card_url;
+            }
+            
+            // Color Logic
+            const badge = document.getElementById('risk-badge');
+            const risk = data.risk_level.toLowerCase();
+            
+            if (risk === 'urgent' || risk === 'high' || risk === 'severe') {
+                badge.className = "w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold bg-red-500 shadow-lg shadow-red-200";
+                badge.textContent = "!";
+            } else if (risk === 'moderate') {
+                badge.className = "w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold bg-yellow-500 shadow-lg shadow-yellow-200";
+                badge.textContent = "⚠";
+            } else {
+                badge.className = "w-16 h-16 rounded-full flex items-center justify-center text-white text-xl font-bold bg-emerald-500 shadow-lg shadow-emerald-200";
+                badge.textContent = "✓";
+            }
+        }
+    </script>
+</body>
+</html>
