@@ -54,8 +54,7 @@ This repository contains:
 
 - Project **Code** (Project source code)
 - Project **Results / Outputs** (screenshots, reports, demo evidence)  
-- Event **Images** (posters, winner highlights, event photos)  
-- Event **Documentation**
+- Event **Images** (posters, winner highlights)  
 
 ```bash
 SabkaAI-AI-for-Inclusion-Hackathon/
@@ -80,7 +79,6 @@ SabkaAI-AI-for-Inclusion-Hackathon/
 │   └── VigilAI/
 │
 ├── IMAGES/
-│   ├── event_photos/
 │   ├── winners/
 │   └── posters/
 ```
