@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Janmitra Web Client</title>
+</head>
+<body>
+    <h1>Janmitra Voice Chat</h1>
+    <p>Click start to begin voice conversation with Janmitra.</p>
+    <button id="startBtn">Start Chat</button>
+    <button id="stopBtn">Stop Chat</button>
+    <div id="status">Status: Disconnected</div>
+
+    <script type="module">
+        import { PipecatClient } from 'https://cdn.jsdelivr.net/npm/@pipecat-ai/client-js@latest/dist/index.js';
+        import { SmallWebRTCTransport } from 'https://cdn.jsdelivr.net/npm/@pipecat-ai/small-webrtc-transport@latest/dist/index.js';
+
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const status = document.getElementById('status');
+
+        // Get URL from query param or default
+        const urlParams = new URLSearchParams(window.location.search);
+        const serverUrl = urlParams.get('server') || 'http://localhost:8080';
+
+        let pcClient;
+
+        startBtn.addEventListener('click', async () => {
+            try {
+                pcClient = new PipecatClient({
+                    transport: new SmallWebRTCTransport({
+                        iceServers: ["stun:stun.l.google.com:19302"],
+                    }),
+                    enableCam: false,
+                    enableMic: true,
+                });
+
+                await pcClient.connect({
+                    webrtcUrl: `${serverUrl}/offer`,  // Bot's WebRTC signaling endpoint
+                });
+
+                status.textContent = 'Status: Connected';
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            } catch (error) {
+                console.error('Error starting chat:', error);
+                status.textContent = 'Status: Error - ' + error.message;
+            }
+        });
+
+        stopBtn.addEventListener('click', async () => {
+            if (pcClient) {
+                await pcClient.disconnect();
+                status.textContent = 'Status: Disconnected';
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            }
+        });
+
+        stopBtn.disabled = true;
+    </script>
+</body>
+</html>
