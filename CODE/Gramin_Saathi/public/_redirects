@@ -1,0 +1,6 @@
+# Netlify Redirects
+# Redirect /home to /dashboard
+/home    /dashboard    301
+
+# SPA fallback for client-side routing
+/*    /index.html   200
