@@ -1,0 +1,79 @@
+{
+  "expo": {
+    "name": "Memora",
+    "slug": "memora",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.memora.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to camera to capture images for AI captioning.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to photo library to select and process images for AI captioning.",
+        "NSPhotoLibraryAddUsageDescription": "This app needs access to save processed images with captions to your photo library.",
+        "BGAppRefreshTask": "Enable background processing to automatically caption your photos."
+      },
+      "backgroundModes": [
+        "background-fetch",
+        "background-processing"
+      ]
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.memora.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_MEDIA_LOCATION",
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.WAKE_LOCK",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.VIBRATE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/icon.png"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Memora to access your camera to capture images for AI captioning."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow Memora to access your photo library to process and caption images.",
+          "savePhotosPermission": "Allow Memora to save processed images with captions to your photo library.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
+      [
+        "expo-background-fetch",
+        {
+          "backgroundFetchPermission": "Allow Memora to process images in the background to automatically generate captions."
+        }
+      ],
+      [
+        "expo-task-manager"
+      ]
+    ],
+    "scheme": "memora"
+  }
+}
